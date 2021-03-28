@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lottery Simulator</title>
+        <style>
+            body {background-color: mintcream;font-size: 25px;font-family:sans-serif}
+            h1, p, address {color: darkslateblue}
+            .highlightWin {background-color: gold}
+		    .highlightBonusWin {background-color: darkblue;color: white}
+		    .highlightBonus {background-color: darkred;color: white}
+            span {border:1px solid black;line-height: 35px;border-radius: 50px;width: 40px;height: 40px;text-align: center;display: inline-block;color: darkslateblue}
+            #container {display:block;align-content: center;width: auto;text-align: center}
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Lottery Simulator</h1>
+            <div>
+                <p>Your chosen Numbers:</p>
+                <span id="displayUserNum1"></span>
+                <span id="displayUserNum2"></span>
+                <span id="displayUserNum3"></span>
+                <span id="displayUserNum4"></span>
+                <span id="displayUserNum5"></span>
+                <span id="displayUserNum6"></span>
+            </div>
+            <p>Draw Numbers:</p>
+            <div id="draw">
+                <span id="num1"></span>
+                <span id="num2"></span>
+                <span id="num3"></span>
+                <span id="num4"></span>
+                <span id="num5"></span>
+                <span id="num6"></span>
+                <span id="num7"></span>
+            </div>
+        </div>
+        <script>
+            var userNumbers = [];
+            i = 0;
+            while (i < 6) {
+                var userNumber = prompt("Enter Numbers");
+                var userNumber1 = parseInt(userNumber);
+                userNumbers[i] = userNumber1;
+                i++;
+            }
+            
+            document.getElementById("displayUserNum1").innerHTML = userNumbers[0];
+            document.getElementById("displayUserNum2").innerHTML = userNumbers[1];
+            document.getElementById("displayUserNum3").innerHTML = userNumbers[2];
+            document.getElementById("displayUserNum4").innerHTML = userNumbers[3];
+            document.getElementById("displayUserNum5").innerHTML = userNumbers[4];
+            document.getElementById("displayUserNum6").innerHTML = userNumbers[5];
+            
+            var lotteryNumbers = [];
+            i = 0;
+            while (i < 7) {
+                var lotteryNumber = Math.floor(Math.random() * 59) + 1;    
+                if (lotteryNumbers.indexOf(lotteryNumber) == -1) {
+                    lotteryNumbers[i] = lotteryNumber;
+                    i++;
+                }
+            }
+            
+            document.getElementById("num1").innerHTML = lotteryNumbers[0];
+            document.getElementById("num2").innerHTML = lotteryNumbers[1];
+            document.getElementById("num3").innerHTML = lotteryNumbers[2];
+            document.getElementById("num4").innerHTML = lotteryNumbers[3];
+            document.getElementById("num5").innerHTML = lotteryNumbers[4];
+            document.getElementById("num6").innerHTML = lotteryNumbers[5];
+            document.getElementById("num7").innerHTML = lotteryNumbers[6];
+            
+            for (var element1 of userNumbers){
+                for(var element2 of lotteryNumbers){
+                    if(element1 == element2){
+                        var i = userNumbers.indexOf(element1);
+                        var element = document.getElementById("displayUserNum"+ (i + 1));
+                        element.classList.add("highlightWin");
+                    }
+                }
+            }
+
+            var element7 = document.getElementById("num7");
+            element7.classList.add("highlightBonus");
+
+            for (var elem of userNumbers){
+                if(element7.innerHTML == elem){
+                    var i = userNumbers.indexOf(elem);
+                    var element = document.getElementById("displayUserNum" + (i + 1));
+                    element.classList.add("highlightBonusWin");
+                }
+            }
+        </script>
+    </body>
+</html>
